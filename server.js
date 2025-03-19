@@ -87,8 +87,8 @@ connectDb().then(() => {
   server.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
   });
-  server.keepAliveTimeout = 120000; // 120 seconds
-  server.headersTimeout = 120000; // 120 seconds
+  server.keepAliveTimeout = 2400000; // 120 seconds
+  server.headersTimeout = 240000; // 120 seconds
 }).catch(err => {
   console.error("❌ Database connection failed:", err);
 });
