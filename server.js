@@ -14,7 +14,6 @@ const io = socketIo(server, {
 });
 
 const path = require("path");
-
 const authRouter = require("./router/user/auth-router");
 const contactRoute = require("./router/user/contact-router");
 const categoryRoute = require("./router/user/category-router");
