@@ -109,11 +109,11 @@ const forgotPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
   const { email, newPassword } = req.body;
-  // console.log("req.body", req.body);
+  console.log("req.body", req.body);
   // console.log("body is: ",email,otp,newPassword)
   try {
     const user = await User.findOne({ email });
-    // console.log("User is ", user);
+    console.log("User is ", user);
     if (!user) return res.status(404).json({ message: "User not found" });
     
     const hashedPassword = await bcrypt.hash(newPassword, 10);

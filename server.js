@@ -8,8 +8,8 @@ const app = express();
 const server = http.createServer(app); // Create HTTP server
 const io = socketIo(server, {
   cors: {
-    origin: "photostudiobymili.netlify.app", // Allow frontend to connect
-    methods: ["GET", "POST"]
+    origin: "https://photostudiobymili.netlify.app", // Allow frontend to connect
+    methods: ["GET","POST","PUT","DELETE"]
   }
 });
 
