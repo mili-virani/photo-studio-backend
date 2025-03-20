@@ -1,11 +1,12 @@
 const express = require("express");
+require('dotenv').config(); // Load environment variables
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const Admin = require("../../models/admin-model"); // Capitalize model name
 const upload=require('../../middlewares/profile-upload')
 const path = require("path");
 const fs = require("fs");
-
+const BACKEND_URL = process.env.BACKEND_URL;
 
 const router = express.Router();
 const SECRET_KEY = process.env.JWT_SECRET_KEY || "Online_Studio"; // Store securely
@@ -128,7 +129,7 @@ router.put("/update-profile/:id", upload.single("profilePicture"), async (req, r
 
         // If a new profile picture is uploaded, update it
         if (req.file) {
-            updateData.profilePicture = `http://localhost:8000/profile-uploads/${req.file.filename}`;
+            updateData.profilePicture = `${BACKEND_URL}/profile-uploads/${req.file.filename}`;
         }
 
         // Update admin data
