@@ -8,10 +8,12 @@ const app = express();
 const server = http.createServer(app); // Create HTTP server
 const io = socketIo(server, {
   cors: {
-    origin: "https://photostudiobymili.netlify.app", // Allow frontend to connect
+    origin: ["https://photostudiobymili.netlify.app", "http://localhost:3000"], // Allow both Netlify & Localhost
     methods: ["GET","POST","PUT","DELETE"]
   }
 });
+
+app.use(cors({ origin: "*" }));
 
 const path = require("path");
 const authRouter = require("./router/user/auth-router");
