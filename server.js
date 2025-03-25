@@ -40,7 +40,6 @@ const errorMiddleware = require('./middlewares/error-middleware');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 // API Routes
 app.use("/admin1", adminAuthRoute);
