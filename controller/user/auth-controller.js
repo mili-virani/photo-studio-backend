@@ -169,10 +169,10 @@ const contactSendEmail = async (req, res) => {
 
   // Email Content
   let mailOptions = {
-      from: "Online Photo Studio",
+      from: `"Online Photo Studio Admin" <${process.env.EMAIL}>`,  // Sender name & email
       to: email,
-      subject: "Reply to Your Inquiry",
-      text: message,
+      subject: "Reply to Your Contact Form Submission",
+      text: `${message}\n\nBest Regards,\nOnline Photo Studio Team`, // Appends message with signature
   };
 
   try {
@@ -182,7 +182,8 @@ const contactSendEmail = async (req, res) => {
       console.error("Error sending email:", error);
       res.status(500).json({ success: false, message: "Failed to send email." });
   }
-}
+};
+
 
 // Get all users
 const getAllUsers = async (req, res) => {
