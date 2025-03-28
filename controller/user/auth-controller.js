@@ -169,7 +169,7 @@ const contactSendEmail = async (req, res) => {
 
   // Email Content
   let mailOptions = {
-      from: process.env.EMAIL_USER,
+      from: "Online Photo Studio",
       to: email,
       subject: "Reply to Your Inquiry",
       text: message,
