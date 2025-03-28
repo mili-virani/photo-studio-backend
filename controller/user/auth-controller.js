@@ -155,6 +155,35 @@ const resetPasswordForAdmin = async (req, res) => {
   }
 };
 
+const contactSendEmail = async (req, res) => {
+  const { email, message } = req.body;
+
+  // Configure Transporter
+  let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+          user: process.env.EMAIL, // Your email
+          pass: process.env.EMAIL_PASS, // Your email password (or App Password)
+      },
+  });
+
+  // Email Content
+  let mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: email,
+      subject: "Reply to Your Inquiry",
+      text: message,
+  };
+
+  try {
+      await transporter.sendMail(mailOptions);
+      res.status(200).json({ success: true, message: "Email sent successfully!" });
+  } catch (error) {
+      console.error("Error sending email:", error);
+      res.status(500).json({ success: false, message: "Failed to send email." });
+  }
+}
+
 // Get all users
 const getAllUsers = async (req, res) => {
   try {
@@ -177,4 +206,4 @@ const getUserById = async (req, res) => {
   }
 }
 
-module.exports = { home, register, login, getAllUsers, forgotPassword,getUserById, resetPassword, resetPasswordForAdmin};
+module.exports = { home, register, login, getAllUsers, forgotPassword,getUserById, resetPassword, resetPasswordForAdmin, contactSendEmail};
