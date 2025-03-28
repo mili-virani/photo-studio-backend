@@ -172,7 +172,7 @@ const contactSendEmail = async (req, res) => {
       from: `"Online Photo Studio Admin" <${process.env.EMAIL}>`,  // Sender name & email
       to: email,
       subject: "Reply to Your Contact Form Submission",
-      text: `${message}\n\nBest Regards,\nOnline Photo Studio Team`, // Appends message with signature
+      text: `Hello,\n\nThank you for reaching out.${message}\n\nBest Regards,\nOnline Photo Studio Team`, // Appends message with signature
   };
 
   try {
