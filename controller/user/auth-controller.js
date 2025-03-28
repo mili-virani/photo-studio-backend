@@ -130,6 +130,29 @@ const resetPassword = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+const resetPasswordForAdmin = async (req, res) => {
+  const { email, newPassword } = req.body;
+  console.log("req.body", req.body);
+  // console.log("body is: ",email,otp,newPassword)
+  try {
+    const admin = await Admin.findOne({ email });
+    console.log("Admin is ", admin);
+    if (!admin) return res.status(404).json({ message: "Admin not found" });
+    
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+    admin.password = hashedPassword;
+    admin.resetOTP = null;
+    admin.otpExpiry = null;
+    
+    await admin.save();
+    // console.log("Hey without error");
+    console.log("hashed pwd", hashedPassword);
+    res.json({ message: "Password reset successfully" });
+  } catch (error) {
+    // console.log("Hey with error!!!");
+    res.status(500).json({ message: "Server error" });
+  }
+};
 
 // Get all users
 const getAllUsers = async (req, res) => {
@@ -153,4 +176,4 @@ const getUserById = async (req, res) => {
   }
 }
 
-module.exports = { home, register, login, getAllUsers, forgotPassword,getUserById, resetPassword};
+module.exports = { home, register, login, getAllUsers, forgotPassword,getUserById, resetPassword, resetPasswordForAdmin};

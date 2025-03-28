@@ -18,6 +18,12 @@ const adminSchema = new mongoose.Schema({
         type: String, // Store the URL of the profile picture
         default: "/profile-uploads/admin-avatar.png"
     },
+    resetOTP: { 
+        type: String  // Store OTP
+    },
+    otpExpiry: { 
+        type: Date  // Store OTP expiration time
+    }
    
 },{timestamps: true});
 
