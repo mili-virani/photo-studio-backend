@@ -81,6 +81,64 @@ res.status(500).json({ success: false, message: "Internal Server Error" });
 }
 };
 
+// ✅ Get Bookings for Logged-in User
+const getUserBookings = async (req, res) => {
+    const { userId } = req.params;
+    console.log("Fetching Bookings for UserID:", userId); // 🟢 Debug log
+  
+    try {
+      const bookings = await Booking.find({ userId: userId })
+        .populate("userId", "username email phone")
+        .populate("categoryId", "name")
+        .populate("packageId", "packageName");
+  
+      if (!bookings.length) {
+        console.log("No Bookings Found!");
+        return res.status(200).json({ success: true, data: [] });
+      }
+  
+      res.status(200).json({ success: true, data: bookings });
+    } catch (error) {
+      console.error("Error fetching user booking data:", error.message);
+      res.status(500).json({
+        success: false,
+        message: "Error fetching booking data",
+        error: error.message,
+      });
+    }
+  };
+  
+// const getUserBookings = async (req, res) => {
+//     console.log("Received request:", req.url); // Logs the request URL
+//     console.log("Params:", req.params); // Logs the request parameters
+
+//     const { userId } = req.params;
+//     console.log("Extracted UserID:", userId); // Logs extracted userId
+
+//     try {
+//         const bookings = await Booking.find({ userId: userId })
+//             .populate("userId", "username email phone")
+//             .populate("categoryId", "name")
+//             .populate("packageId", "packageName");
+
+//         if (!bookings.length) {
+//             console.log("No Bookings Found!");
+//             return res.status(200).json({ success: true, data: [] });
+//         }
+
+//         console.log("Bookings Found:", bookings.length);
+//         res.status(200).json({ success: true, data: bookings });
+//     } catch (error) {
+//         console.error("Error fetching user booking data:", error.message);
+//         res.status(500).json({
+//             success: false,
+//             message: "Error fetching booking data",
+//             error: error.message,
+//         });
+//     }
+// };
+
+
 // Get a single Booking by ID (GET)
 const getBookingById = async (req, res) => {
 try {
@@ -146,4 +204,5 @@ getAllBookings,
 getBookingById,
 updateBooking,
 deleteBooking,
+getUserBookings,
 };
