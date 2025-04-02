@@ -72,6 +72,7 @@ exports.createProduct = async (req, res) => {
     const notification = new Notification({
       message: `New Product Added: ${name} - ₹${price}`,
       type: "new_product",
+      productId: newProduct._id,
     });
     // console.log("Saving notification:", notification);
 

@@ -10,6 +10,12 @@ const notificationSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+
+  productId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Product",
+  },
+
   type: {
     type: String,
     enum: ["new_product", "price_drop", "general"],

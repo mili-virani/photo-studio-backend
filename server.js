@@ -2,15 +2,14 @@ require('dotenv').config();
 const cors = require("cors");
 const express = require("express");
 const http = require("http"); // Add this
-const socketIo = require("socket.io"); // Add this
+const socket = require("./utils/socket");
 
 const app = express();
 const server = http.createServer(app); // Create HTTP server
-const io = socketIo(server, {
-  cors: {
-    origin: ["https://photostudiobymili.netlify.app", "http://localhost:3000"], // Allow both Netlify & Localhost
-    methods: ["GET","POST","PUT","DELETE"]
-  }
+const io = socket.init(server);
+
+io.on("connection", (socket) => {
+  console.log("User connected:", socket.id);
 });
 
 app.use(cors({ origin: "*" }));
